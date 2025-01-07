@@ -1,16 +1,38 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // For making API requests
 
-const SignupForm = ({ onSignup }) => {
+const SignupForm = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Initialize navigate
-
-  const handleSubmit = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    onSignup({ email, password, name });
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      // Send a POST request to the backend API
+      const response = await axios.post("http://localhost:5000/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+
+      // Handle successful response
+      console.log("User registered successfully:", response.data);
+      navigate("/login"); // Navigate to the login page after successful signup
+    } catch (err) {
+      console.error("Error during registration:", err);
+      setError(err.response?.data?.error || "Failed to register. Please try again.");
+    }
   };
 
   return (
@@ -21,7 +43,7 @@ const SignupForm = ({ onSignup }) => {
       {/* Form */}
       <form
         className="flex flex-col bg-[#2a2a54] p-8 rounded-lg shadow-md space-y-6"
-        onSubmit={handleSubmit}
+        onSubmit={handleSignup}
       >
         {/* Name Input */}
         <input
@@ -55,16 +77,20 @@ const SignupForm = ({ onSignup }) => {
           required
           className="w-72 px-4 py-2 rounded-lg bg-[#f0f0f0] text-black focus:outline-none focus:ring-2 focus:ring-[#a1a6ff]"
         />
-        {/*Confirm Password Input */}
+
+        {/* Confirm Password Input */}
         <input
-          id="Confirm password"
+          id="confirmPassword"
           type="password"
           placeholder="Confirm Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           required
           className="w-72 px-4 py-2 rounded-lg bg-[#f0f0f0] text-black focus:outline-none focus:ring-2 focus:ring-[#a1a6ff]"
         />
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         {/* Submit Button */}
         <button

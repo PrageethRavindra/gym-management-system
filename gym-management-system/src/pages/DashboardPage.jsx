@@ -1,13 +1,23 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("home"); // State to manage active tab
+  const [dashboardData, setDashboardData] = useState({});
+  const [activeTab, setActiveTab] = useState("home"); // Added state for activeTab
 
-  const location = useLocation(); // Get the current route
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/dashboard")
+      .then((response) => {
+        setDashboardData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching dashboard data:", error);
+      });
+  }, []);
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab); // Change active tab based on button click
+    setActiveTab(tab); // Set the active tab on click
   };
 
   return (

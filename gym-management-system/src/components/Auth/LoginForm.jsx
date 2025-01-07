@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth"; // Firebase v9 imports
+import { auth } from "../../services/firebase"; // Adjust the path as needed
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Initialize navigate
-
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    onLogin({ email, password });
+    setError(""); // Clear any existing error messages
+    try {
+      await signInWithEmailAndPassword(auth, email, password); // Use the initialized auth instance
+      navigate("/dashboard"); // Navigate to dashboard on success
+    } catch (err) {
+      console.error("Login error:", err); // Log the exact error for debugging
+      setError("Invalid email or password."); // Set user-friendly error
+    }
   };
 
   return (
@@ -20,7 +30,7 @@ const LoginForm = ({ onLogin }) => {
       {/* Form */}
       <form
         className="flex flex-col bg-[#2a2a54] p-8 rounded-lg shadow-md space-y-6"
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
       >
         {/* Email Input */}
         <input
@@ -34,24 +44,35 @@ const LoginForm = ({ onLogin }) => {
         />
 
         {/* Password Input */}
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-72 px-4 py-2 rounded-lg bg-[#f0f0f0] text-black focus:outline-none focus:ring-2 focus:ring-[#a1a6ff]"
-        />
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-72 px-4 py-2 rounded-lg bg-[#f0f0f0] text-black focus:outline-none focus:ring-2 focus:ring-[#a1a6ff]"
+          />
+          {/* Show/Hide Password Toggle */}
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-2 right-4 text-sm text-[#a1a6ff]"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         {/* Submit Button */}
         <button
           type="submit"
           className="w-72 px-6 py-2 bg-[#c8cbff] text-[#1a1a40] font-medium rounded-lg hover:bg-[#a1a6ff] hover:scale-105 transition-transform"
-          onClick={() => navigate("/dashboard")} // Redirect to the Dashboard page
         >
           Login
-          
         </button>
       </form>
 

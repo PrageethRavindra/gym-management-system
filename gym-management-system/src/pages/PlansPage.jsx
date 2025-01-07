@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-const plansData = [
-  { name: 'Member', price: '2000 LKR', color: 'bg-purple-300' },
-  { name: 'Plus', price: '2000 LKR', color: 'bg-purple-500' },
-  { name: 'Gold', price: '2000 LKR', color: 'bg-purple-700' },
-];
+import React from "react";
 
 const Plans = () => {
+  const plansData = [
+    { name: "Basic Plan", price: "1000 LKR", color: "bg-blue-500" },
+    { name: "Premium Plan", price: "3000 LKR", color: "bg-green-500" },
+    { name: "Gold Plan", price: "5000 LKR", color: "bg-yellow-500" },
+  ];
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">Plans</h2>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // For making API requests
+import axios from "axios"; 
 
 const SignupForm = () => {
   const [name, setName] = useState("");
@@ -28,7 +28,7 @@ const SignupForm = () => {
 
       // Handle successful response
       console.log("User registered successfully:", response.data);
-      navigate("/login"); // Navigate to the login page after successful signup
+      navigate("/login");
     } catch (err) {
       console.error("Error during registration:", err);
       setError(err.response?.data?.error || "Failed to register. Please try again.");

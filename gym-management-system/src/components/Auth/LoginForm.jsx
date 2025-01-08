@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Firebase v9 imports
-import { auth } from "../../services/firebase"; // Adjust the path as needed
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebase"; 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,13 +11,13 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any existing error messages
+    setError(""); 
     try {
-      await signInWithEmailAndPassword(auth, email, password); // Use the initialized auth instance
-      navigate("/dashboard"); // Navigate to dashboard on success
+      await signInWithEmailAndPassword(auth, email, password); 
+      navigate("/dashboard"); 
     } catch (err) {
-      console.error("Login error:", err); // Log the exact error for debugging
-      setError("Invalid email or password."); // Set user-friendly error
+      console.error("Login error:", err); 
+      setError("Invalid email or password."); 
     }
   };
 

@@ -1,4 +1,3 @@
-// src/models/userModel.js
 const { db } = require("../utils/firebaseAdmin");
 
 const userCollection = db.collection("users");

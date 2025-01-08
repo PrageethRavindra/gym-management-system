@@ -1,4 +1,3 @@
-// src/app.js
 const express = require("express");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
@@ -9,9 +8,9 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const classRoutes = require("./routes/classRoutes");
 const app = express();
 
-// Middleware to handle CORS and JSON parsing
+
 app.use(cors());
-app.use(express.json()); // Replacing body-parser with express built-in middleware
+app.use(express.json()); 
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -20,7 +19,7 @@ app.use("/api/clients", clientRoutes);
 app.use("/api/trainers", trainerRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/classes", classRoutes); 
-// Default route for testing
+
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });

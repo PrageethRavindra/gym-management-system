@@ -1,4 +1,3 @@
-// src/models/clientModel.js
 const { db } = require("../utils/firebaseAdmin");
 
 // Firestore reference to 'clients' collection

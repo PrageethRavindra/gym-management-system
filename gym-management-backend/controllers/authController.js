@@ -1,4 +1,3 @@
-// src/controllers/authController.js
 const { db, admin } = require("../utils/firebaseAdmin");
 
 const registerUser = async (req, res) => {

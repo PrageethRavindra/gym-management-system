@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SidePanel from "../components/Dashboard/Sidebar";
-// Function to format the date
+
 const formatDate = (date) => {
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   return new Date(date).toLocaleDateString(undefined, options);
@@ -12,8 +12,8 @@ const ClientPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedClient, setSelectedClient] = useState(null); // For viewing client details
-  const [editedClient, setEditedClient] = useState(null); // For editing client details
+  const [selectedClient, setSelectedClient] = useState(null); 
+  const [editedClient, setEditedClient] = useState(null); 
 
   // Fetch all clients on component mount
   useEffect(() => {

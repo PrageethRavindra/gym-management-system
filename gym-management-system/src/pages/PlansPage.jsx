@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import SidePanel from "../components/Dashboard/Sidebar"; // Ensure the correct import path
+import SidePanel from "../components/Dashboard/Sidebar"; 
 
 const PlansAndClasses = () => {
   const [plansData, setPlansData] = useState([]);

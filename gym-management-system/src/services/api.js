@@ -1,7 +1,6 @@
-// src/api.js
 import axios from "axios";
 
-// Create an Axios instance
+
 const api = axios.create({
   baseURL: "http://localhost:5000/api", // Backend server URL
   headers: {
@@ -24,7 +23,7 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle errors globally
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {

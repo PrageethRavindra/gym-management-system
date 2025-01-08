@@ -1,4 +1,3 @@
-// src/controllers/clientController.js
 const { clientsCollection } = require("../models/clientModel");
 
 // Create a new client

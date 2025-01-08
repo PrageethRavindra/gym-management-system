@@ -1,4 +1,3 @@
-// src/models/classModel.js
 const { db } = require("../utils/firebaseAdmin");
 
 // Firestore reference to 'classes' collection

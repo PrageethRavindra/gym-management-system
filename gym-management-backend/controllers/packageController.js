@@ -1,4 +1,3 @@
-// src/controllers/packageController.js
 const { packagesCollection } = require("../models/packageModel");
 
 // Create a new package

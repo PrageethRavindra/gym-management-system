@@ -1,4 +1,3 @@
-// src/models/trainerModel.js
 const { db } = require("../utils/firebaseAdmin");
 
 // Firestore reference to 'trainers' collection

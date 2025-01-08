@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getFirestore, collection, addDoc, query, where, getDocs, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import SidePanel from "../components/Dashboard/Sidebar";
 
-// Function to format the date in "Jan 03, 2025" style
+
 const formatDate = (date) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
   return new Date(date).toLocaleDateString('en-US', options);
@@ -15,7 +15,7 @@ const Dashboard = () => {
     totalMembers: 0,
     totalTrainers: 0,
     activeClasses: 0,
-    lastMonthIncome: 0, // Track the total income of last month
+    lastMonthIncome: 0, 
   });
 
   const [activeTab, setActiveTab] = useState("home");
@@ -43,7 +43,7 @@ const Dashboard = () => {
   });
 
   const [trainers, setTrainers] = useState([]);
-  const [successMessage, setSuccessMessage] = useState(""); // For showing success message
+  const [successMessage, setSuccessMessage] = useState(""); 
 
   const db = getFirestore(); // Initialize Firestore instance
 
@@ -65,7 +65,7 @@ const Dashboard = () => {
         totalMembers,
         totalTrainers,
         activeClasses,
-        lastMonthIncome: 0, // You can implement last month's income calculation here as needed
+        lastMonthIncome: 0, 
       });
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -75,7 +75,7 @@ const Dashboard = () => {
   const fetchCollectionCount = async (collectionName) => {
     try {
       const snapshot = await getDocs(collection(db, collectionName));
-      return snapshot.size; // Return the number of documents in the collection
+      return snapshot.size; 
     } catch (error) {
       console.error(`Error fetching count for ${collectionName}:`, error);
       return 0;
@@ -115,7 +115,7 @@ const Dashboard = () => {
       status: "",
       joinDate: "",
     });
-    setSuccessMessage(""); // Clear success message when tab changes
+    setSuccessMessage(""); 
   };
 
   const handleFormChange = (e) => {
@@ -139,14 +139,14 @@ const Dashboard = () => {
     } else if (activeTab === "members") {
       apiEndpoint = `${baseUrl}/clients`;
     } else if (activeTab === "classes") {
-      apiEndpoint = `${baseUrl}/classes`; // Ensure full URL is constructed here
+      apiEndpoint = `${baseUrl}/classes`; 
     }
 
     const newClassData = {
-      name: formData.className, // Mapped to name
-      description: formData.description, // Mapped to description
-      trainer: formData.classTrainer, // Mapped to trainer
-      schedule: `Monday ${formData.startTime} AM`, // Custom schedule string, adjust if necessary
+      name: formData.className, 
+      description: formData.description, 
+      trainer: formData.classTrainer, 
+      schedule: `Monday ${formData.startTime} AM`, 
     };
 
     // Check if class already exists in Firestore
@@ -155,7 +155,7 @@ const Dashboard = () => {
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         alert("This class already exists!");
-        return; // Exit the function if duplicate class exists
+        return; 
       }
     }
 
@@ -218,7 +218,7 @@ const Dashboard = () => {
  
 
   const calculateLastMonthIncome = async () => {
-    // Query Firestore for the total income from last month based on the price of each member's plan
+    
     const lastMonth = new Date();
     lastMonth.setMonth(lastMonth.getMonth() - 1); // Get the last month
 
@@ -228,7 +228,7 @@ const Dashboard = () => {
     let totalIncome = 0;
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      totalIncome += parseFloat(data.price) || 0; // Ensure price is a valid number
+      totalIncome += parseFloat(data.price) || 0; 
     });
 
     // Set last month income

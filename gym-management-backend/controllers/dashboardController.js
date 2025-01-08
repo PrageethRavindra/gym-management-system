@@ -1,4 +1,3 @@
-// src/controllers/dashboardController.js
 const { db } = require("../utils/firebaseAdmin");
 const cors = require('cors');
 // Get Dashboard Data (Total Members, Trainers, Active Classes, Monthly Revenue)

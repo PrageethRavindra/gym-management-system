@@ -1,4 +1,3 @@
-// src/middlewares/authMiddleware.js
 const { verifyJWT } = require("../utils/jwtUtils");
 
 const authenticate = (req, res, next) => {

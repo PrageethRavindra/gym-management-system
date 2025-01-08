@@ -1,4 +1,3 @@
-// src/controllers/trainerController.js
 const { trainersCollection } = require("../models/trainerModel");
 
 // Create a new trainer
